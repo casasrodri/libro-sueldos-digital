@@ -2,23 +2,51 @@ import datetime
 import diseño_registro
 
 class Empleado:
-    def __init__(self, cuit):
-        self.cuit = cuit
+    def __init__(self, cuil):
+        self.cuil = cuil
         self.conceptos = []
 
     def procesar_registro(self, dict):
-        if dict['registro'] == '02':
-            self.registro2 = dict
-        elif dict['registro'] == '04':
-            self.registro4 = dict
+        if dict['registro'] == '02' or dict['registro'] == '04':
+            # self.registro2 = dict
+            for campo, largo in dict.items():
+                exec(f"self.{campo} = '{dict[campo]}'")
+
+        # elif dict['registro'] == '04':
+
+        #     for campo, largo in dict.items():
+        #         exec(f"self.{campo} = '{dict[campo]}'")
+
         elif dict['registro'] == '03':
             self.conceptos.append(dict)
 
+        # Se elimna el campo registro
+        try:
+            del self.registro
+        except:
+            pass
+        
+
     def __eq__(self, other):
-        return self.cuit == other
+        return self.cuil == other
 
     def __repr__(self) -> str:
-        return str(self.cuit)
+        return str(self.cuil)
+
+    def __str__(self) -> str:
+        
+        out = '<Empleado>\n'
+
+        variables = list(self.__dict__.keys())
+        
+        for var in sorted(variables):
+            if var != 'conceptos':
+                out += f'  {var.ljust(30)} : {self.__dict__[var]}\n'
+        
+
+        out += f'\n  {"Cant. conceptos liquidados:".ljust(30)} : {len(self.conceptos)}\n'
+
+        return out
 
 
 class ArchivoPresentacion:
