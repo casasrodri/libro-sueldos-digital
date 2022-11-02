@@ -1,5 +1,5 @@
 import datetime
-import diseño_registro
+import anterior.diseños_registros as diseños_registros
 
 class Empleado:
     def __init__(self, cuil):
@@ -8,14 +8,9 @@ class Empleado:
 
     def procesar_registro(self, dict):
         if dict['registro'] == '02' or dict['registro'] == '04':
-            # self.registro2 = dict
+
             for campo, largo in dict.items():
                 exec(f"self.{campo} = '{dict[campo]}'")
-
-        # elif dict['registro'] == '04':
-
-        #     for campo, largo in dict.items():
-        #         exec(f"self.{campo} = '{dict[campo]}'")
 
         elif dict['registro'] == '03':
             self.conceptos.append(dict)
@@ -65,14 +60,14 @@ class ArchivoPresentacion:
 
     def leer_registro_1(self):
 
-        self.registro1 = diseño_registro.leer_registro(self.lineas[0])
+        self.registro1 = diseños_registros.leer_registro(self.lineas[0])
 
         for campo, largo in self.registro1.items():
             exec(f"self.{campo} = '{self.registro1[campo]}'")
 
     def leer_empleados(self):
         for linea in self.lineas:
-            leido = diseño_registro.leer_registro(linea)
+            leido = diseños_registros.leer_registro(linea)
 
             if leido['registro'] == '01':
                 continue
@@ -102,22 +97,22 @@ class ArchivoPresentacion:
             out_file = self.archivo.replace('.txt', f"_{ahora}.txt")
 
         # Determinacion de registros
-        reg1 = [diseño_registro.dict_to_linea(self.registro1)]
+        reg1 = [diseños_registros.dict_to_linea(self.registro1)]
 
         reg2 = []
         for emp in self.empleados:
-            linea = f"\n{diseño_registro.dict_to_linea(emp.registro2)}"
+            linea = f"\n{diseños_registros.dict_to_linea(emp.registro2)}"
             reg2.append(linea)
 
         reg3 = []
         for emp in self.empleados:
             for conc in emp.conceptos:
-                linea = f"\n{diseño_registro.dict_to_linea(conc)}"
+                linea = f"\n{diseños_registros.dict_to_linea(conc)}"
                 reg3.append(linea)
 
         reg4 = []
         for emp in self.empleados:
-            linea = f"\n{diseño_registro.dict_to_linea(emp.registro4)}"
+            linea = f"\n{diseños_registros.dict_to_linea(emp.registro4)}"
             reg4.append(linea)
 
         union = reg1 + reg2 + reg3 + reg4

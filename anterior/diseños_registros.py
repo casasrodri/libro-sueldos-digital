@@ -1,4 +1,4 @@
-DISEÑO1 = {
+DISEÑO11 = {
     'registro': 2,
     'cuit': 11,
     'envio': 2,
