@@ -1,4 +1,4 @@
-from table_elements import *
+from tables.elements import *
 
 DISEÑO1 = Tabla([
     Campo('registro',                       2,  TIPO.NUM, LADO.IZQ, RELLENO.CERO),

@@ -1,5 +1,5 @@
-import design_tables as dt
-from table_elements import TIPO
+import tables.design as dt
+from tables.elements import TIPO
 
 class Reader:
 
@@ -8,10 +8,7 @@ class Reader:
         self.diseños = [dt.DISEÑO1, dt.DISEÑO2, dt.DISEÑO3, dt.DISEÑO4]
         self.txt = None
 
-    def parser_diseño(self, diseño):
-        pass
-
-    def cortar_linea(self, linea):
+    def parse(self, linea):
         
         num_diseño = int(linea[0:2])
         try:
@@ -53,16 +50,9 @@ class Reader:
         return out
 
 
-
-
-txt = Reader(r"presentaciones\A10_AUS_A16.txt")
-
 # print(txt.__dict__)
 
 # Si es 1: Crear ArchivoPresentacion()
 # Si es 2: Buscar o crear un Empleado() e incorporar la info
 # Si es 3: Crear ConceptoLiquidado()
 # Si es 4: Buscar o crear un Empleado() e incorporar la info
-
-
-print(txt.cortar_linea("0427257004290000010100501049008001801010509000030000000000000040080000000000000000000000000000000000000000000000000000000000000000000000000000000000000041852333000000014612331000000014557331000000014557331000000014557331000000014557331000000014557331000000000000000000000000000000000000014557331000000014557331000000000000000000000000000000000000014393912000000000163419"))
