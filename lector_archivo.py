@@ -1,5 +1,7 @@
 import datetime
+
 import diseño_registro
+
 
 class Empleado:
     def __init__(self, cuit):
@@ -78,14 +80,16 @@ class ArchivoPresentacion:
 
         reg2 = []
         for emp in self.empleados:
-            linea = f"\n{diseño_registro.dict_to_linea(emp.registro2)}"
-            reg2.append(linea)
+            if 'registro2' in emp.__dict__:
+                linea = f"\n{diseño_registro.dict_to_linea(emp.registro2)}"
+                reg2.append(linea)
 
         reg3 = []
         for emp in self.empleados:
-            for conc in emp.conceptos:
-                linea = f"\n{diseño_registro.dict_to_linea(conc)}"
-                reg3.append(linea)
+            if emp.conceptos:
+                for conc in emp.conceptos:
+                    linea = f"\n{diseño_registro.dict_to_linea(conc)}"
+                    reg3.append(linea)
 
         reg4 = []
         for emp in self.empleados:
